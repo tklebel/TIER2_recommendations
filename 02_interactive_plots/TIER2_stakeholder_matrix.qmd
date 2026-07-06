@@ -35,7 +35,7 @@ execute:
   .quarto-title-meta { color: #6b7ea8; font-size: 0.82rem; }
 
   /* Table header text — override Bootstrap/theme specificity */
-  .t2-table th { color: #0D2557 !important; }
+  .t2-table th { color: #FFFFFF !important; }
 
   /* Accent rule between title and body */
   .quarto-title-block + hr, hr {
@@ -54,19 +54,17 @@ execute:
 </style>
 ```
 
-This document presents three interactive views of 11 recommendations for improving research reproducibility across five stakeholder groups and four thematic categories. The stakeholder responsibility matrix lets you filter by category or stakeholder and click recommendation chips to expand their full descriptions, the stakeholder–recommendation network graph shows the same relationships as connected nodes with click-to-view details below, and the priority × effort matrix offers a strategic lens for scanning expected impact against implementation complexity.
+This document presents four interactive views of 11 recommendations for improving research reproducibility across five stakeholder groups and four thematic categories. The interactive spoke diagram provides a visual overview with click-to-view descriptions, the stakeholder responsibility matrix lets you filter by category or stakeholder and click recommendation chips to expand their full descriptions, the stakeholder–recommendation network graph shows the same relationships as connected nodes with click-to-view details below, and the priority × effort matrix offers a strategic lens for scanning expected impact against implementation complexity.
+For more information on TIER2, [see our website here.](https://tier2-project.eu/){target="_blank"}
 
 ### Contents
 
-1. [Stakeholder Responsibility Matrix](#stakeholder-responsibility-matrix)
-2. [Stakeholder–Recommendation Network](#stakeholderrecommendation-network)
-3. [Priority × Effort Matrix](#priority-effort-matrix)
+1. [Interactive Spoke Diagram](#interactive-spoke-diagram)
+2. [Stakeholder Responsibility Matrix](#stakeholder-responsibility-matrix)
+3. [Stakeholder–Recommendation Network](#stakeholderrecommendation-network)
+4. [Priority × Effort Matrix](#priority-effort-matrix)
 
 ---
-
-## Stakeholder Responsibility Matrix
-
-
 
 ```{r}
 #| label: setup
@@ -175,20 +173,242 @@ strategic_list <- lapply(seq_len(nrow(strategic_df)), function(i) {
   )
 })
 
-ojs_define(recs_raw = recs_list)
-ojs_define(strategic_raw = strategic_list)
 ```
 
-```{ojs}
-//| label: matrix
+## Interactive Spoke Diagram
+
+This is the interactive counterpart of the publication spoke diagram. Select an icon or recommendation label to display its full description and stakeholder ownership below.
+
+```{r}
+#| label: spoke-data
+#| results: asis
+
+# Keep the relatively large base64 icon payload outside OJS so the generated
+# self-contained HTML remains usable when opened directly with a file:// URL.
+spoke_recs_list <- lapply(seq_len(nrow(df)), function(i) {
+  icon_path <- file.path(
+    dirname(interactive_dir), "01_publication_static", "icons",
+    paste0(df$id[i], ".png")
+  )
+  list(
+    id = trimws(as.character(df$id[i])),
+    title = trimws(df$title[i]),
+    desc = trimws(df$description[i]),
+    cat = trimws(df$category[i]),
+    stks = as.list(trimws(strsplit(trimws(df$stakeholder[i]), ";")[[1]])),
+    icon = if (file.exists(icon_path)) knitr::image_uri(icon_path) else NA_character_
+  )
+})
+
+spoke_json <- jsonlite::toJSON(spoke_recs_list, auto_unbox = TRUE, na = "null")
+spoke_json <- gsub("</script", "<\\/script", spoke_json, fixed = TRUE)
+recs_json <- jsonlite::toJSON(recs_list, auto_unbox = TRUE, na = "null")
+strategic_json <- jsonlite::toJSON(strategic_list, auto_unbox = TRUE, na = "null")
+recs_json <- gsub("</script", "<\\/script", recs_json, fixed = TRUE)
+strategic_json <- gsub("</script", "<\\/script", strategic_json, fixed = TRUE)
+cat('<script id="t2-spoke-data" type="application/json">', spoke_json, '</script>')
+cat('<script id="t2-recs-data" type="application/json">', recs_json, '</script>')
+cat('<script id="t2-strategic-data" type="application/json">', strategic_json, '</script>')
+```
+
+```{=html}
+<div id="t2-spoke-mount"></div>
+<script>
+(() => {
+const recs_raw = JSON.parse(document.getElementById("t2-spoke-data").textContent)
+
+const spokeShortTitles = ({
+  "R1.1": "Sustainable open infrastructure",
+  "R1.2": "Standards for data re-use",
+  "R1.3": "Persistent identifiers & metadata",
+  "R2.1": "Responsible reproducibility metrics",
+  "R2.2": "Fund replication studies",
+  "R3.1": "Training ecosystems & networks",
+  "R3.2": "Leadership & researcher training",
+  "R3.3": "Journal infrastructure capacity",
+  "R4.1": "Efficacy of interventions",
+  "R4.2": "Costs & benefits of interventions",
+  "R4.3": "Enable metaresearch workflows"
+})
+
+const spokeThemeMeta = [
+  { id: "R1", label: "R1 Infrastructure, standards & community", color: "#0D2557", text: "#FFFFFF" },
+  { id: "R2", label: "R2 Incentives, policy & culture", color: "#32dbce", text: "#0D2557" },
+  { id: "R3", label: "R3 Research & metascience", color: "#6B8FBF", text: "#FFFFFF" },
+  { id: "R4", label: "R4 Skills & capacity", color: "#C2F5F2", text: "#0D2557" }
+]
+
+const spokeWidget = (() => {
+  const ns = "http://www.w3.org/2000/svg"
+  const wrap = document.createElement("div")
+  wrap.className = "t2-spoke-wrap"
+  wrap.innerHTML = `
+    <style>
+      .t2-spoke-wrap{font-family:system-ui,-apple-system,sans-serif}
+      .t2-spoke-frame{border:1.5px solid #ebecf0;border-radius:12px;background:#fff;overflow:hidden;padding:10px}
+      .t2-spoke-svg{display:block;width:100%;height:auto;max-height:900px;margin:auto}
+      .t2-spoke-rec{cursor:pointer;outline:none}
+      .t2-spoke-rec .t2-spoke-hit{fill:transparent}
+      .t2-spoke-rec .t2-spoke-line{transition:stroke-width .15s,opacity .15s}
+      .t2-spoke-rec .t2-spoke-icon-ring{fill:#fff;stroke-width:2;transition:stroke-width .15s,filter .15s}
+      .t2-spoke-rec .t2-spoke-label{fill:#0D2557;font-size:14px;font-weight:600}
+      .t2-spoke-rec:hover .t2-spoke-line,.t2-spoke-rec:focus .t2-spoke-line,.t2-spoke-rec.active .t2-spoke-line{stroke-width:5}
+      .t2-spoke-rec:hover .t2-spoke-icon-ring,.t2-spoke-rec:focus .t2-spoke-icon-ring,.t2-spoke-rec.active .t2-spoke-icon-ring{stroke-width:4;filter:drop-shadow(0 2px 4px #0d255744)}
+      .t2-spoke-rec:focus-visible .t2-spoke-hit{stroke:#0D2557;stroke-width:2;stroke-dasharray:4 3}
+      .t2-spoke-hint{font-size:12px;color:#8a99b8;margin:10px 2px 0}
+      .t2-spoke-detail{display:none;margin-top:14px;border-left:4px solid #32dbce;background:#f7f9fc;border-radius:0 8px 8px 0;padding:16px 18px}
+      .t2-spoke-chip,.t2-spoke-owner{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;margin:2px}
+      .t2-spoke-owner{border:1.5px solid #c5cce0;color:#0D2557;background:#ebecf0;font-weight:500}
+      @media(max-width:700px){.t2-spoke-rec .t2-spoke-label{font-size:12px}.t2-spoke-frame{padding:2px}}
+    </style>
+    <div class="t2-spoke-frame"></div>
+    <p class="t2-spoke-hint">Click any recommendation chip to view its full description.</p>
+    <div class="t2-spoke-detail" aria-live="polite"></div>`
+
+  const frame = wrap.querySelector(".t2-spoke-frame")
+  const detail = wrap.querySelector(".t2-spoke-detail")
+  const hint = wrap.querySelector(".t2-spoke-hint")
+  const svg = document.createElementNS(ns, "svg")
+  svg.setAttribute("class", "t2-spoke-svg")
+  svg.setAttribute("viewBox", "-525 -525 1050 1050")
+  svg.setAttribute("role", "img")
+  svg.setAttribute("aria-label", "TIER2 recommendations arranged as clickable spokes around four themes")
+  frame.appendChild(svg)
+
+  const polar = (radius, angle) => [radius * Math.sin(angle), -radius * Math.cos(angle)]
+  const sectorPath = (start, end, radius) => {
+    const [x1, y1] = polar(radius, start)
+    const [x2, y2] = polar(radius, end)
+    return `M 0 0 L ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2} Z`
+  }
+  const addText = (parent, x, y, value, attrs = {}) => {
+    const text = document.createElementNS(ns, "text")
+    text.setAttribute("x", x); text.setAttribute("y", y)
+    Object.entries(attrs).forEach(([key, val]) => text.setAttribute(key, val))
+    text.textContent = value
+    parent.appendChild(text)
+    return text
+  }
+  const splitTitle = title => {
+    const words = title.split(" ")
+    const lines = [""]
+    words.forEach(word => {
+      const last = lines.length - 1
+      if ((lines[last] + " " + word).trim().length > 26 && lines[last]) lines.push(word)
+      else lines[last] = (lines[last] + " " + word).trim()
+    })
+    return lines.slice(0, 3)
+  }
+
+  spokeThemeMeta.forEach((theme, index) => {
+    const path = document.createElementNS(ns, "path")
+    path.setAttribute("d", sectorPath(index * Math.PI / 2, (index + 1) * Math.PI / 2, 200))
+    path.setAttribute("fill", theme.color); path.setAttribute("stroke", "#FFFFFF"); path.setAttribute("stroke-width", "4")
+    svg.appendChild(path)
+    const [tx, ty] = polar(120, index * Math.PI / 2 + Math.PI / 4)
+    const themeLines = {
+      R1: ["R1 Infrastructure,", "standards &", "community"],
+      R2: ["R2 Incentives,", "policy & culture"],
+      R3: ["R3 Research", "& metascience"],
+      R4: ["R4 Skills", "& capacity"]
+    }
+    const lines = themeLines[theme.id]
+    const inwardAnchor = tx >= 0 ? "start" : "end"
+    const labelX = tx >= 0 ? 22 : -22
+    const themeText = addText(svg, labelX, ty, "", {"text-anchor":inwardAnchor,"font-size":"15","font-weight":"700",fill:theme.text})
+    lines.forEach((line, lineIndex) => {
+      const span = document.createElementNS(ns, "tspan")
+      span.setAttribute("x", labelX)
+      span.setAttribute("y", ty + (lineIndex - (lines.length - 1) / 2) * 18)
+      span.textContent = line
+      themeText.appendChild(span)
+    })
+  })
+
+  const centre = document.createElementNS(ns, "circle")
+  centre.setAttribute("r", "62"); centre.setAttribute("fill", "#FFFFFF"); svg.appendChild(centre)
+  addText(svg, 0, -5, "TIER2", {"text-anchor":"middle","font-size":"24","font-weight":"700",fill:"#0D2557"})
+  addText(svg, 0, 19, "Recommendations", {"text-anchor":"middle","font-size":"11",fill:"#0D2557"})
+
+  let active = null
+  const renderDetail = (rec, theme) => {
+    detail.style.display = "block"; hint.style.display = "none"; detail.style.borderLeftColor = theme.color
+    detail.innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px">
+        <div><span class="t2-spoke-chip" style="border:1.5px solid ${theme.color};color:#0D2557;background:${theme.color}22;font-weight:700">${rec.id}</span><span style="font-size:12px;color:#6b7ea8;font-weight:500">${theme.label.replace(/^R\d\s/, "")}</span></div>
+        <button type="button" class="t2-spoke-close" aria-label="Close recommendation detail" style="border:0;background:transparent;color:#6b7ea8;font-size:21px;cursor:pointer">×</button>
+      </div>
+      <p style="margin:0 0 8px;font-size:15px;font-weight:600;color:#0D2557;line-height:1.45">${rec.title}</p>
+      <p style="margin:0 0 10px;font-size:13px;color:#3a4f7a;line-height:1.75">${rec.desc}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center"><span style="font-size:12px;color:#8a99b8;margin-right:4px;font-weight:500">Stakeholder ownership:</span>${rec.stks.map(stk => `<span class="t2-spoke-owner">${stk}</span>`).join("")}</div>`
+    detail.querySelector(".t2-spoke-close").addEventListener("click", () => {
+      if (active) active.classList.remove("active")
+      active = null; detail.style.display = "none"; hint.style.display = "block"
+    })
+    detail.scrollIntoView({behavior:"smooth", block:"nearest"})
+  }
+
+  spokeThemeMeta.forEach((theme, themeIndex) => {
+    const themeRecs = recs_raw.filter(rec => rec.id.startsWith(theme.id + "."))
+    themeRecs.forEach((rec, recIndex) => {
+      const angle = themeIndex * Math.PI / 2 + (recIndex + 0.5) * (Math.PI / 2 / themeRecs.length)
+      const [dotX, dotY] = polar(212, angle)
+      const [endX, endY] = polar(250, angle)
+      const [iconX, iconY] = polar(272, angle)
+      const [labelX, labelY] = polar(315, angle)
+      const right = Math.sin(angle) > 0.15
+      const left = Math.sin(angle) < -0.15
+      const anchor = right ? "start" : left ? "end" : "middle"
+      const group = document.createElementNS(ns, "g")
+      group.setAttribute("class", "t2-spoke-rec"); group.setAttribute("tabindex", "0"); group.setAttribute("role", "button")
+      group.setAttribute("aria-label", `${rec.id}: ${spokeShortTitles[rec.id]}. Show full description.`)
+      const hit = document.createElementNS(ns, "rect")
+      hit.setAttribute("class", "t2-spoke-hit"); hit.setAttribute("x", right ? iconX - 24 : left ? labelX - 245 : labelX - 125); hit.setAttribute("y", labelY - 38)
+      hit.setAttribute("width", right || left ? "270" : "250"); hit.setAttribute("height", "76"); hit.setAttribute("rx", "8"); group.appendChild(hit)
+      const line = document.createElementNS(ns, "line")
+      line.setAttribute("class", "t2-spoke-line"); line.setAttribute("x1", dotX); line.setAttribute("y1", dotY); line.setAttribute("x2", endX); line.setAttribute("y2", endY); line.setAttribute("stroke", theme.color); line.setAttribute("stroke-width", "2"); group.appendChild(line)
+      const dot = document.createElementNS(ns, "circle")
+      dot.setAttribute("cx", dotX); dot.setAttribute("cy", dotY); dot.setAttribute("r", "7"); dot.setAttribute("fill", theme.color); dot.setAttribute("stroke", "#FFFFFF"); dot.setAttribute("stroke-width", "2"); group.appendChild(dot)
+      const ring = document.createElementNS(ns, "circle")
+      ring.setAttribute("class", "t2-spoke-icon-ring"); ring.setAttribute("cx", iconX); ring.setAttribute("cy", iconY); ring.setAttribute("r", "21"); ring.setAttribute("stroke", theme.color); group.appendChild(ring)
+      if (rec.icon && rec.icon !== "NA") {
+        const image = document.createElementNS(ns, "image")
+        image.setAttribute("href", rec.icon); image.setAttribute("x", iconX - 15); image.setAttribute("y", iconY - 15); image.setAttribute("width", "30"); image.setAttribute("height", "30"); image.setAttribute("preserveAspectRatio", "xMidYMid meet"); group.appendChild(image)
+      }
+      const label = addText(group, labelX, labelY - 8, rec.id, {class:"t2-spoke-label","text-anchor":anchor,"font-weight":"700"})
+      splitTitle(spokeShortTitles[rec.id]).forEach((lineText, i) => {
+        const span = document.createElementNS(ns, "tspan")
+        span.setAttribute("x", labelX); span.setAttribute("dy", i === 0 ? "18" : "16"); span.setAttribute("font-weight", "500"); span.textContent = lineText; label.appendChild(span)
+      })
+      const select = () => { if (active) active.classList.remove("active"); active = group; group.classList.add("active"); renderDetail(rec, theme) }
+      group.addEventListener("click", select)
+      group.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); select() } })
+      svg.appendChild(group)
+    })
+  })
+  return wrap
+})()
+
+document.getElementById("t2-spoke-mount").appendChild(spokeWidget)
+})()
+</script>
+```
+
+---
+
+## Stakeholder Responsibility Matrix
+
+```{=html}
+<div id="t2-matrix-mount"></div>
+<script>
 
 // ── Brand palette ────────────────────────────────────────────────────────────
 // Navy   #0D2557  |  Teal   #32dbce  |  Grey  #ebecf0  |  White  #FFFFFF
 // Four category colours are derived from the brand anchor colours.
 
-recs = recs_raw
+const recs = JSON.parse(document.getElementById("t2-recs-data").textContent)
 
-cats = [
+const cats = [
   {
     label: "Infrastructure & standards",
     match: "Infrastructure, standards and community",
@@ -219,7 +439,7 @@ cats = [
   }
 ]
 
-stakeholders = [
+const stakeholders = [
   { name: "Funders",              icon: "💰" },
   { name: "Publishers",           icon: "📖" },
   { name: "Institutions",         icon: "🏛️" },
@@ -231,7 +451,7 @@ function categoryChipStyle(cat) {
   return `background:${cat.bg};color:${cat.tx};border-color:${cat.color}`;
 }
 
-widget = {
+const widget = (() => {
   // ── Styles ───────────────────────────────────────────────────────────────
   const style = document.createElement("style");
   style.textContent = `
@@ -654,7 +874,10 @@ widget = {
   updateFilters();
 
   return root;
-}
+})()
+
+document.getElementById("t2-matrix-mount").appendChild(widget)
+</script>
 ```
 
 ---
@@ -1132,10 +1355,11 @@ tagList(
 
 This strategic view positions each recommendation by expected impact on reproducibility outcomes and implementation complexity. It is designed for a fast decision scan: click any recommendation point to view the full title, description, and stakeholder ownership below.
 
-```{ojs}
-//| label: priority-effort-matrix
+```{=html}
+<div id="t2-priority-mount"></div>
+<script>
 
-stakeholderShort = ({
+const stakeholderShort = ({
   "Funders": "F",
   "Publishers": "P",
   "Institutions": "I",
@@ -1143,9 +1367,9 @@ stakeholderShort = ({
   "Meta-Researchers": "MR"
 })
 
-strategicScores = strategic_raw
+const strategicScores = JSON.parse(document.getElementById("t2-strategic-data").textContent)
 
-strategicRecs = strategicScores.map(score => {
+const strategicRecs = strategicScores.map(score => {
   const rec = recs.find(r => r.id === score.id)
   const cat = cats.find(c => c.match === rec.cat.trim())
   return {
@@ -1157,7 +1381,7 @@ strategicRecs = strategicScores.map(score => {
   }
 })
 
-strategicGroups = {
+const strategicGroups = (() => {
   const grouped = new Map()
   for (const rec of strategicRecs) {
     const key = `${rec.impact}-${rec.complexity}`
@@ -1165,9 +1389,9 @@ strategicGroups = {
     grouped.get(key).push(rec.id)
   }
   return grouped
-}
+})()
 
-strategicOffsetMap = {
+const strategicOffsetMap = (() => {
   const offsets = new Map()
   const patterns = {
     1: [[0, 0]],
@@ -1182,9 +1406,9 @@ strategicOffsetMap = {
     })
   })
   return offsets
-}
+})()
 
-strategicWidget = {
+const strategicWidget = (() => {
   const style = document.createElement("style")
   style.textContent = `
     .t2-pr-wrap { font-family: system-ui, -apple-system, sans-serif; }
@@ -1608,5 +1832,8 @@ addQuadrantLabel(chart.right - 14, chart.bottom - 44, "Lower priority, higher ef
   updateCategoryFilter()
 
   return root
-}
+})()
+
+document.getElementById("t2-priority-mount").appendChild(strategicWidget)
+</script>
 ```
