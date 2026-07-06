@@ -54,7 +54,7 @@ execute:
 </style>
 ```
 
-This document presents three interactive views of 12 recommendations for improving research reproducibility across five stakeholder groups and four thematic categories. The stakeholder responsibility matrix lets you filter by category or stakeholder and click recommendation chips to expand their full descriptions, the stakeholder–recommendation network graph shows the same relationships as connected nodes with click-to-view details below, and the priority × effort matrix offers a strategic lens for scanning expected impact against implementation complexity.
+This document presents three interactive views of 11 recommendations for improving research reproducibility across five stakeholder groups and four thematic categories. The stakeholder responsibility matrix lets you filter by category or stakeholder and click recommendation chips to expand their full descriptions, the stakeholder–recommendation network graph shows the same relationships as connected nodes with click-to-view details below, and the priority × effort matrix offers a strategic lens for scanning expected impact against implementation complexity.
 
 ### Contents
 
@@ -108,12 +108,22 @@ interactive_path <- function(...) file.path(interactive_dir, ...)
 df <- read_excel(interactive_path("TIER2_recommendations.xlsx")) |>
   setNames(c("id", "title", "description", "category", "stakeholder"))
 
+# Match the 11-recommendation set used by 01_publication_static: remove the
+# original R2.1 (Drive culture change), then close the numbering gap.
+df$id <- sub("\\.+$", "", trimws(as.character(df$id)))
+df <- df[df$id != "R2.1", , drop = FALSE]
+df$id[df$id == "R2.2"] <- "R2.1"
+df$id[df$id == "R2.3"] <- "R2.2"
+
 priority_ratings <- read.csv(
   interactive_path("TIER2_priority_effort_ratings.csv"),
   stringsAsFactors = FALSE
 )
-df$id_key <- sub("\\.+$", "", trimws(as.character(df$id)))
 priority_ratings$id_key <- sub("\\.+$", "", trimws(as.character(priority_ratings$id)))
+priority_ratings <- priority_ratings[priority_ratings$id_key != "R2.1", , drop = FALSE]
+priority_ratings$id_key[priority_ratings$id_key == "R2.2"] <- "R2.1"
+priority_ratings$id_key[priority_ratings$id_key == "R2.3"] <- "R2.2"
+df$id_key <- df$id
 priority_ratings$impact_rating <- as.numeric(priority_ratings$impact_rating)
 priority_ratings$complexity_rating <- as.numeric(priority_ratings$complexity_rating)
 
