@@ -25,6 +25,7 @@ Generated files are stored in [`01_publication_static/output/`](01_publication_s
 [`02_interactive_plots/TIER2_stakeholder_matrix.qmd`](02_interactive_plots/TIER2_stakeholder_matrix.qmd)
 renders a self-contained HTML page containing:
 
+- an interactive spoke diagram with click-to-view recommendation details;
 - a filterable stakeholder responsibility matrix;
 - a stakeholder–recommendation network;
 - a priority × effort matrix.
@@ -102,17 +103,19 @@ Render the interactive page:
 quarto render 02_interactive_plots/TIER2_stakeholder_matrix.qmd
 ```
 
-The Quarto output is self-contained, so the resulting HTML file can be published as a single file.
+The Quarto output is self-contained and uses embedded JavaScript, so the
+resulting HTML file can be opened directly from the local filesystem or
+published as a single file without a separate web server.
 
 ## Data notes
 
-The static and interactive outputs intentionally use different recommendation
-sets at present:
+The static and interactive outputs use the same set of 11 recommendations.
+Both read the 12-row recommendation workbook, remove the original `R2.1`
+(`Drive culture change`), and close the numbering gap by renumbering the
+original `R2.2` as `R2.1` and `R2.3` as `R2.2`. The spoke diagrams use shortened
+display labels, while full titles and descriptions remain available in the
+interactive detail view.
 
-- the interactive page reads all 12 recommendations in its workbook; TO BE CHANGED!!! (also to add here would be an interactive Kohrs et al style visual)
-- the static script removes the original `R2.1`, renumbers `R2.2` and `R2.3`,
-  and displays 11 recommendations with shortened figure labels.
-
-Priority and implementation-complexity ratings (draft/conceptual ratinngs ONLY) use a 1–5 scale and are stored
+Priority and implementation-complexity ratings (draft/conceptual ratings only - TO BE REVISED!)
+use a 1–5 scale and are stored
 in [`02_interactive_plots/TIER2_priority_effort_ratings.csv`](02_interactive_plots/TIER2_priority_effort_ratings.csv).
-
