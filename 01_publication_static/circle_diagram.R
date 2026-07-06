@@ -435,7 +435,7 @@ spoke_plot <- ggplot() +
   geom_text(
     data = theme_text_data_spoke,
     aes(x = x, y = y, label = label, colour = label_colour),
-    size = 3,
+    size = 3.3,
     fontface = "bold",
     lineheight = 0.9,
     hjust = 0.5,
@@ -483,7 +483,7 @@ spoke_plot <- ggplot() +
   geom_text(
     data = spoke_data,
     aes(x = label_x, y = label_y, label = label_text, hjust = hjust),
-    size = 2.3,
+    size = 3.3,
     colour = "#0D2557",
     lineheight = 0.85
   ) +
