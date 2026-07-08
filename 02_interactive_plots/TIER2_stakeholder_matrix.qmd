@@ -1,5 +1,5 @@
 ---
-title: "TIER2 Recommendations"
+title: "Making research more reproducible: eleven paths forward"
 subtitle: "Visualisations for Stakeholder Recommendation Interactions"
 date: today
 format:
@@ -114,7 +114,7 @@ execute:
 
 When referring to this work, please cite it as:
 
-> Klebel, T., Bannach-Brown, A., Allen, L., Amaral, O. B., MacCallum, C. J., Bouter, L., Tijdink, J., & Ross-Hellauer, T. (2026). *TIER2 Recommendations: Visualisations for Stakeholder Recommendation Interactions* [Preprint]. **Placeholder — preprint server and DOI to be added.**
+> Klebel, T., Bannach-Brown, A., Allen, L., Amaral, O. B., MacCallum, C. J., Bouter, L., Tijdink, J., & Ross-Hellauer, T. (2026). *Making research more reproducible: eleven paths forward* [Preprint]. **Placeholder — preprint server and DOI to be added.**
 
 This document presents three interactive views of 11 recommendations for improving research reproducibility across five stakeholder groups and four thematic categories. The interactive spoke diagram provides a visual overview with click-to-view descriptions, the stakeholder responsibility matrix lets you filter by category or stakeholder and click recommendation chips to expand their full descriptions, the stakeholder–recommendation network graph shows the same relationships as connected nodes with click-to-view details below.
 
