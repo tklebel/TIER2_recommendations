@@ -3,8 +3,7 @@
 Visualisations of the TIER2 recommendations for strengthening research
 reproducibility. The repository contains publication-ready static figures and a
 self-contained interactive webpage showing how the recommendations relate to
-stakeholder groups, thematic categories, implementation effort, and expected
-impact.
+stakeholder groups and thematic categories.
 
 ![TIER2 recommendations spoke diagram](01_publication_static/output/tier2_spoke_diagram.png)
 
@@ -27,8 +26,7 @@ renders a self-contained HTML page containing:
 
 - an interactive spoke diagram with click-to-view recommendation details;
 - a filterable stakeholder responsibility matrix;
-- a stakeholder–recommendation network;
-- a priority × effort matrix.
+- a stakeholder–recommendation network.
 
 The rendered page is available locally at
 [`02_interactive_plots/TIER2_stakeholder_matrix.html`](02_interactive_plots/TIER2_stakeholder_matrix.html)
@@ -115,7 +113,3 @@ Both read the 12-row recommendation workbook, remove the original `R2.1`
 original `R2.2` as `R2.1` and `R2.3` as `R2.2`. The spoke diagrams use shortened
 display labels, while full titles and descriptions remain available in the
 interactive detail view.
-
-Priority and implementation-complexity ratings (draft/conceptual ratings only - TO BE REVISED!)
-use a 1–5 scale and are stored
-in [`02_interactive_plots/TIER2_priority_effort_ratings.csv`](02_interactive_plots/TIER2_priority_effort_ratings.csv).
