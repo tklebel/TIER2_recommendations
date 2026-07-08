@@ -51,18 +51,76 @@ execute:
     font-size: 0.95rem;
     line-height: 1.7;
   }
+
+  .t2-author-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
+    margin: 0.35rem 0 1rem;
+  }
+
+  .t2-author {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #0D2557;
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .t2-link {
+    color: #0D2557;
+    text-decoration-color: #32dbce;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .t2-link:hover,
+  .t2-link:focus {
+    color: #0A7C78;
+  }
+
+  .t2-orcid-icon {
+    width: 0.95rem;
+    height: 0.95rem;
+    flex: 0 0 auto;
+  }
+
+  .t2-external-link::after {
+    content: "↗";
+    display: inline-block;
+    margin-left: 0.2rem;
+    font-size: 0.75em;
+    line-height: 1;
+    transform: translateY(-0.08em);
+  }
 </style>
 ```
 
-This document presents four interactive views of 11 recommendations for improving research reproducibility across five stakeholder groups and four thematic categories. The interactive spoke diagram provides a visual overview with click-to-view descriptions, the stakeholder responsibility matrix lets you filter by category or stakeholder and click recommendation chips to expand their full descriptions, the stakeholder–recommendation network graph shows the same relationships as connected nodes with click-to-view details below, and the priority × effort matrix offers a strategic lens for scanning expected impact against implementation complexity.
-For more information on TIER2, [see our website here.](https://tier2-project.eu/){target="_blank"}
+This document presents three interactive views of 11 recommendations for improving research reproducibility across five stakeholder groups and four thematic categories. The interactive spoke diagram provides a visual overview with click-to-view descriptions, the stakeholder responsibility matrix lets you filter by category or stakeholder and click recommendation chips to expand their full descriptions, the stakeholder–recommendation network graph shows the same relationships as connected nodes with click-to-view details below. 
+
 
 ### Contents
 
 1. [Interactive Spoke Diagram](#interactive-spoke-diagram)
 2. [Stakeholder Responsibility Matrix](#stakeholder-responsibility-matrix)
 3. [Stakeholder–Recommendation Network](#stakeholderrecommendation-network)
-4. [Priority × Effort Matrix](#priority-effort-matrix)
+
+### Authors 
+
+```{=html}
+<div class="t2-author-list" aria-label="Authors">
+  <span class="t2-author">Thomas Klebel <a class="t2-link" href="https://orcid.org/0000-0002-7331-4751" target="_blank" rel="noopener noreferrer" aria-label="Thomas Klebel ORCID profile"><svg class="t2-orcid-icon" viewBox="0 0 256 256" role="img" aria-hidden="true" focusable="false"><circle cx="128" cy="128" r="128" fill="#A6CE39"/><path fill="#FFFFFF" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.5-56.8 53.5h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.7-26.5 42.7-39.7 0-21.5-13.7-39.8-43.5-39.8h-23.7v79.5zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1 4.6-10.1 10.1-10.1 10.1 4.6 10.1 10.1z"/></svg></a></span>
+  <span class="t2-author">Olavo Almaral <a class="t2-link" href="https://orcid.org/0000-0002-4299-8978" target="_blank" rel="noopener noreferrer" aria-label="Olavo Almaral ORCID profile"><svg class="t2-orcid-icon" viewBox="0 0 256 256" role="img" aria-hidden="true" focusable="false"><circle cx="128" cy="128" r="128" fill="#A6CE39"/><path fill="#FFFFFF" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.5-56.8 53.5h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.7-26.5 42.7-39.7 0-21.5-13.7-39.8-43.5-39.8h-23.7v79.5zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1 4.6-10.1 10.1-10.1 10.1 4.6 10.1 10.1z"/></svg></a></span>
+  <span class="t2-author">Alexandra Bannach-Brown <a class="t2-link" href="https://orcid.org/0000-0002-3161-1395" target="_blank" rel="noopener noreferrer" aria-label="Alexandra Bannach-Brown ORCID profile"><svg class="t2-orcid-icon" viewBox="0 0 256 256" role="img" aria-hidden="true" focusable="false"><circle cx="128" cy="128" r="128" fill="#A6CE39"/><path fill="#FFFFFF" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.5-56.8 53.5h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.7-26.5 42.7-39.7 0-21.5-13.7-39.8-43.5-39.8h-23.7v79.5zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1 4.6-10.1 10.1-10.1 10.1 4.6 10.1 10.1z"/></svg></a></span>
+  <span class="t2-author">Lex Bouter <a class="t2-link" href="https://orcid.org/0000-0002-2659-5482" target="_blank" rel="noopener noreferrer" aria-label="Lex Bouter ORCID profile"><svg class="t2-orcid-icon" viewBox="0 0 256 256" role="img" aria-hidden="true" focusable="false"><circle cx="128" cy="128" r="128" fill="#A6CE39"/><path fill="#FFFFFF" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.5-56.8 53.5h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.7-26.5 42.7-39.7 0-21.5-13.7-39.8-43.5-39.8h-23.7v79.5zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1 4.6-10.1 10.1-10.1 10.1 4.6 10.1 10.1z"/></svg></a></span>
+  <span class="t2-author">Catriona MacCallum <a class="t2-link" href="https://orcid.org/0000-0001-9623-2225" target="_blank" rel="noopener noreferrer" aria-label="Catriona MacCallum ORCID profile"><svg class="t2-orcid-icon" viewBox="0 0 256 256" role="img" aria-hidden="true" focusable="false"><circle cx="128" cy="128" r="128" fill="#A6CE39"/><path fill="#FFFFFF" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.5-56.8 53.5h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.7-26.5 42.7-39.7 0-21.5-13.7-39.8-43.5-39.8h-23.7v79.5zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1 4.6-10.1 10.1-10.1 10.1 4.6 10.1 10.1z"/></svg></a></span>
+  <span class="t2-author">Joeri Tijdink <a class="t2-link" href="https://orcid.org/0000-0002-1826-2274" target="_blank" rel="noopener noreferrer" aria-label="Joeri Tijdink ORCID profile"><svg class="t2-orcid-icon" viewBox="0 0 256 256" role="img" aria-hidden="true" focusable="false"><circle cx="128" cy="128" r="128" fill="#A6CE39"/><path fill="#FFFFFF" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.5-56.8 53.5h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.7-26.5 42.7-39.7 0-21.5-13.7-39.8-43.5-39.8h-23.7v79.5zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1 4.6-10.1 10.1-10.1 10.1 4.6 10.1 10.1z"/></svg></a></span>
+  <span class="t2-author">Tony Ross-Hellauer <a class="t2-link" href="https://orcid.org/0000-0003-4470-7027" target="_blank" rel="noopener noreferrer" aria-label="Tony Ross-Hellauer ORCID profile"><svg class="t2-orcid-icon" viewBox="0 0 256 256" role="img" aria-hidden="true" focusable="false"><circle cx="128" cy="128" r="128" fill="#A6CE39"/><path fill="#FFFFFF" d="M86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.5-56.8 53.5h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.7-26.5 42.7-39.7 0-21.5-13.7-39.8-43.5-39.8h-23.7v79.5zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1 4.6-10.1 10.1-10.1 10.1 4.6 10.1 10.1z"/></svg></a></span>
+</div>
+
+<p>For more information on TIER2, <a class="t2-link t2-external-link" href="https://tier2-project.eu/" target="_blank" rel="noopener noreferrer">visit the project website</a>.</p>
+```
 
 ---
 
@@ -1350,490 +1408,3 @@ tagList(
 ```
 
 ---
-
-## Priority × Effort Matrix
-
-This strategic view positions each recommendation by expected impact on reproducibility outcomes and implementation complexity. It is designed for a fast decision scan: click any recommendation point to view the full title, description, and stakeholder ownership below.
-
-```{=html}
-<div id="t2-priority-mount"></div>
-<script>
-
-const stakeholderShort = ({
-  "Funders": "F",
-  "Publishers": "P",
-  "Institutions": "I",
-  "Research Communities": "RC",
-  "Meta-Researchers": "MR"
-})
-
-const strategicScores = JSON.parse(document.getElementById("t2-strategic-data").textContent)
-
-const strategicRecs = strategicScores.map(score => {
-  const rec = recs.find(r => r.id === score.id)
-  const cat = cats.find(c => c.match === rec.cat.trim())
-  return {
-    ...score,
-    ...rec,
-    category: cat,
-    owners: rec.stks.map(s => s.trim()),
-    ownerShort: rec.stks.map(s => stakeholderShort[s.trim()] || s.trim()).join(" · ")
-  }
-})
-
-const strategicGroups = (() => {
-  const grouped = new Map()
-  for (const rec of strategicRecs) {
-    const key = `${rec.impact}-${rec.complexity}`
-    if (!grouped.has(key)) grouped.set(key, [])
-    grouped.get(key).push(rec.id)
-  }
-  return grouped
-})()
-
-const strategicOffsetMap = (() => {
-  const offsets = new Map()
-  const patterns = {
-    1: [[0, 0]],
-    2: [[-16, -12], [16, 12]],
-    3: [[0, -18], [-18, 14], [18, 14]],
-    4: [[-18, -18], [18, -18], [-18, 18], [18, 18]]
-  }
-  strategicGroups.forEach((ids, key) => {
-    const pattern = patterns[ids.length] || ids.map((_, i) => [((i % 3) - 1) * 16, (Math.floor(i / 3) - 0.5) * 18])
-    ids.forEach((id, index) => {
-      offsets.set(id, pattern[index] || [0, 0])
-    })
-  })
-  return offsets
-})()
-
-const strategicWidget = (() => {
-  const style = document.createElement("style")
-  style.textContent = `
-    .t2-pr-wrap { font-family: system-ui, -apple-system, sans-serif; }
-    .t2-pr-legend { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 12px; align-items:center; }
-    .t2-pr-legend-lbl { font-size:11px; font-weight:600; color:#6b7ea8;
-                        text-transform:uppercase; letter-spacing:.6px; margin-right:4px; }
-    .t2-pr-legend-item { display:inline-block; padding:4px 12px; border-radius:20px;
-                         font-size:11px; font-weight:600; border:1.5px solid transparent;
-                         cursor:pointer; transition:opacity .15s, transform .15s, box-shadow .15s; }
-    .t2-pr-legend-item:hover { opacity:.85; transform:translateY(-1px); }
-    .t2-pr-legend-item.active { box-shadow:0 0 0 2px #0D2557; }
-    .t2-pr-legend-item.dim { opacity:.35; }
-    .t2-pr-controls { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:0 0 12px; }
-    .t2-pr-reset { border:1.5px solid #c5cce0; background:#FFFFFF; color:#0D2557;
-                   border-radius:999px; padding:5px 12px; font-size:12px; font-weight:600;
-                   cursor:pointer; transition:background .15s, border-color .15s, opacity .15s; }
-    .t2-pr-reset:hover { background:#f5f7fc; border-color:#8a99b8; }
-    .t2-pr-reset[hidden] { display:none; }
-    .t2-pr-filter-note { font-size:12px; color:#6b7ea8; }
-    .t2-pr-sublegend { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 12px; align-items:center; }
-    .t2-pr-sublegend-item { display:inline-block; padding:4px 10px; border-radius:999px; font-size:11px;
-                            font-weight:600; border:1.5px solid #d8e0ef; color:#3a4f7a; background:#f7f9fc;
-                            cursor:pointer; transition:opacity .15s, transform .15s, box-shadow .15s; }
-    .t2-pr-sublegend-item:hover { opacity:.85; transform:translateY(-1px); }
-    .t2-pr-sublegend-item.active { box-shadow:0 0 0 2px #0D2557; }
-    .t2-pr-sublegend-item.dim { opacity:.35; }
-    .t2-pr-frame { border:1.5px solid #ebecf0; border-radius:12px; background:#FFFFFF; overflow:hidden; }
-    .t2-pr-svg { display:block; width:100%; height:auto; background:#FFFFFF; }
-    .t2-pr-axis { font-size:12px; fill:#0D2557; font-weight:600; }
-    .t2-pr-caption { font-size:11px; fill:#6b7ea8; }
-    .t2-pr-quad { font-size:14px; font-weight:700; fill:#b5bfd6; }
-    .t2-pr-point { cursor:pointer; transition:opacity .15s, transform .15s; }
-    .t2-pr-point:hover .t2-pr-dot { opacity:.9; }
-    .t2-pr-dot { stroke-width:2.5; }
-    .t2-pr-id { font-size:12px; font-weight:700; fill:#0D2557; text-anchor:middle; pointer-events:none; }
-    .t2-pr-own { font-size:10px; fill:#6b7ea8; text-anchor:middle; pointer-events:none; }
-    .t2-pr-point.active .t2-pr-dot { stroke:#0D2557; stroke-width:3.5; }
-    .t2-pr-point.active .t2-pr-id { fill:#0D2557; }
-    .t2-pr-point.dim { opacity:.22; }
-    .t2-pr-hint { font-size:12px; color:#8a99b8; margin-top:10px; margin-bottom:0; }
-    .t2-pr-detail { border-left:4px solid #32dbce; border-radius:0 10px 10px 0;
-                    padding:18px 22px; margin-top:14px; background:#FFFFFF;
-                    border-top:1.5px solid #ebecf0; border-right:1.5px solid #ebecf0;
-                    border-bottom:1.5px solid #ebecf0; display:none; }
-    .t2-pr-chip { display:inline-block; padding:2px 10px; border-radius:12px; font-size:11px;
-                  font-weight:700; margin-right:8px; border:1.5px solid transparent; }
-    .t2-pr-owner { display:inline-block; padding:2px 10px; border-radius:12px; font-size:11px;
-                   border:1.5px solid #c5cce0; color:#0D2557; background:#ebecf0; margin:2px; font-weight:500; }
-    .t2-pr-close { background:none; border:none; cursor:pointer; color:#8a99b8; font-size:22px; padding:0; line-height:1; }
-    .t2-pr-close:hover { color:#0D2557; }
-  `
-
-  const root = document.createElement("div")
-  root.className = "t2-pr-wrap"
-  root.appendChild(style)
-
-  const legend = document.createElement("div")
-  legend.className = "t2-pr-legend"
-  legend.innerHTML =
-    `<span class="t2-pr-legend-lbl">Categories:</span>` +
-    cats.map(c =>
-      `<span class="t2-pr-legend-item" data-category="${c.match}" style="background:${c.bg};color:${c.tx};border-color:${c.color}">
-         ${c.label}
-       </span>`
-    ).join("")
-  root.appendChild(legend)
-
-  const controls = document.createElement("div")
-  controls.className = "t2-pr-controls"
-  controls.innerHTML = `
-    <button class="t2-pr-reset" id="t2-pr-reset" hidden>Reset filters</button>
-    <span class="t2-pr-filter-note" id="t2-pr-filter-note">Click a category chip to highlight recommendations in that category.</span>
-  `
-  root.appendChild(controls)
-
-  const stakeholderLegend = document.createElement("div")
-  stakeholderLegend.className = "t2-pr-sublegend"
-  stakeholderLegend.innerHTML = `
-    <span class="t2-pr-legend-lbl">Stakeholder Codes:</span>
-    <span class="t2-pr-sublegend-item" data-stakeholder="Funders">F = Funders</span>
-    <span class="t2-pr-sublegend-item" data-stakeholder="Publishers">P = Publishers</span>
-    <span class="t2-pr-sublegend-item" data-stakeholder="Institutions">I = Institutions</span>
-    <span class="t2-pr-sublegend-item" data-stakeholder="Research Communities">RC = Research Communities</span>
-    <span class="t2-pr-sublegend-item" data-stakeholder="Meta-Researchers">MR = Meta-Researchers</span>
-  `
-  root.appendChild(stakeholderLegend)
-
-  const frame = document.createElement("div")
-  frame.className = "t2-pr-frame"
-
-  const svgNS = "http://www.w3.org/2000/svg"
-  const svg = document.createElementNS(svgNS, "svg")
-  svg.setAttribute("viewBox", "0 0 980 680")
-  svg.setAttribute("class", "t2-pr-svg")
-
-  const chart = { left: 150, right: 910, top: 90, bottom: 540 }
-  const width = chart.right - chart.left
-  const height = chart.bottom - chart.top
-  const xScale = v => chart.left + (v / 100) * width
-  const yScale = v => chart.bottom - (v / 100) * height
-  const bubbleInsetX = width * 0.10
-  const bubbleInsetY = height * 0.10
-  const bubbleLeft = chart.left + bubbleInsetX
-  const bubbleRight = chart.right - bubbleInsetX
-  const bubbleTop = chart.top + bubbleInsetY
-  const bubbleBottom = chart.bottom - bubbleInsetY
-  const bubbleWidth = bubbleRight - bubbleLeft
-  const bubbleHeight = bubbleBottom - bubbleTop
-  const xBubbleScale = v => bubbleLeft + (v / 100) * bubbleWidth
-  const yBubbleScale = v => bubbleBottom - (v / 100) * bubbleHeight
-
-  const plotClip = document.createElementNS(svgNS, "clipPath")
-  plotClip.setAttribute("id", "t2-pr-clip")
-  const plotClipRect = document.createElementNS(svgNS, "rect")
-  plotClipRect.setAttribute("x", chart.left)
-  plotClipRect.setAttribute("y", chart.top)
-  plotClipRect.setAttribute("width", width)
-  plotClipRect.setAttribute("height", height)
-  plotClip.appendChild(plotClipRect)
-
-  const defs = document.createElementNS(svgNS, "defs")
-  defs.appendChild(plotClip)
-  svg.appendChild(defs)
-
-  const gridLayer = document.createElementNS(svgNS, "g")
-  gridLayer.setAttribute("clip-path", "url(#t2-pr-clip)")
-  svg.appendChild(gridLayer)
-
-  function addText(x, y, text, cls, anchor = "start", rotate = null) {
-    const el = document.createElementNS(svgNS, "text")
-    el.setAttribute("x", x)
-    el.setAttribute("y", y)
-    el.setAttribute("class", cls)
-    el.setAttribute("text-anchor", anchor)
-    if (rotate !== null) el.setAttribute("transform", `rotate(${rotate} ${x} ${y})`)
-    el.textContent = text
-    svg.appendChild(el)
-    return el
-  }
-
-  const axisColor = "#8a99b8"
-  ;[
-    { x1: chart.left, y1: chart.bottom, x2: chart.right, y2: chart.bottom },
-    { x1: chart.left, y1: chart.top, x2: chart.left, y2: chart.bottom }
-  ].forEach(line => {
-    const el = document.createElementNS(svgNS, "line")
-    Object.entries(line).forEach(([k, v]) => el.setAttribute(k, v))
-    el.setAttribute("stroke", axisColor)
-    el.setAttribute("stroke-width", "2")
-    svg.appendChild(el)
-  })
-
-  ;[25, 50, 75].forEach(v => {
-    const x = xScale(v)
-    const y = yScale(v)
-    const vLine = document.createElementNS(svgNS, "line")
-    vLine.setAttribute("x1", x)
-    vLine.setAttribute("x2", x)
-    vLine.setAttribute("y1", chart.top)
-    vLine.setAttribute("y2", chart.bottom)
-    vLine.setAttribute("stroke", "#eef2f8")
-    vLine.setAttribute("stroke-width", "1")
-    gridLayer.appendChild(vLine)
-
-    const hLine = document.createElementNS(svgNS, "line")
-    hLine.setAttribute("x1", chart.left)
-    hLine.setAttribute("x2", chart.right)
-    hLine.setAttribute("y1", y)
-    hLine.setAttribute("y2", y)
-    hLine.setAttribute("stroke", "#eef2f8")
-    hLine.setAttribute("stroke-width", "1")
-    gridLayer.appendChild(hLine)
-  })
-
-addText((chart.left + chart.right) / 2, 630, "Implementation effort", "t2-pr-axis", "middle")
-addText((chart.left + chart.right) / 2, 653, "From lower effort and resource requirements to greater delivery complexity, coordination needs and longer implementation timeframes", "t2-pr-caption", "middle")
-addText(38, (chart.top + chart.bottom) / 2, "Strategic priority for improving reproducibility outcomes", "t2-pr-axis", "middle", -90)
-addText(18, (chart.top + chart.bottom) / 2, "From lower to higher strategic priority", "t2-pr-caption", "middle", -90)
-
-  let activePoint = null
-  let activeCategory = null
-  let activeStakeholder = null
-  const pointEntries = []
-  const resetBtn = controls.querySelector("#t2-pr-reset")
-  const filterNote = controls.querySelector("#t2-pr-filter-note")
-
-  const detail = document.createElement("div")
-  detail.className = "t2-pr-detail"
-
-  const hint = document.createElement("p")
-  hint.className = "t2-pr-hint"
-  hint.textContent = "Click any recommendation point to view its full description and stakeholder ownership."
-
-  function clearActivePoint() {
-    if (activePoint) {
-      activePoint.classList.remove("active")
-      activePoint = null
-    }
-  }
-
-  function renderDetail(rec) {
-    detail.style.display = "block"
-    detail.style.borderLeftColor = rec.category.color
-    detail.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-        <div>
-          <span class="t2-pr-chip" style="background:${rec.category.bg};color:${rec.category.tx};border-color:${rec.category.color}">
-            ${rec.id}
-          </span>
-          <span style="font-size:12px;color:#6b7ea8;font-weight:500">${rec.category.label} · ${rec.quadrant}</span>
-        </div>
-        <button class="t2-pr-close" id="t2-pr-close">×</button>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px">
-        <span class="t2-pr-owner">Impact: ${rec.impact_rating}</span>
-        <span class="t2-pr-owner">Complexity: ${rec.complexity_rating}</span>
-      </div>
-      <p style="margin:0 0 8px;font-size:15px;font-weight:600;color:#0D2557;line-height:1.45">${rec.title}</p>
-      <p style="margin:0 0 14px;font-size:13px;color:#3a4f7a;line-height:1.75">${rec.desc}</p>
-      ${rec.rationale && rec.rationale !== "NA" ? `<p style="margin:0 0 14px;font-size:13px;color:#3a4f7a;line-height:1.75"><strong style="color:#0D2557">Rationale:</strong> ${rec.rationale}</p>` : ""}
-      <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">
-        <span style="font-size:12px;color:#8a99b8;margin-right:4px;font-weight:500">Stakeholder ownership:</span>
-        ${rec.owners.map(owner => `<span class="t2-pr-owner">${owner}</span>`).join("")}
-      </div>
-    `
-    detail.querySelector("#t2-pr-close").addEventListener("click", () => {
-      detail.style.display = "none"
-      hint.style.display = "block"
-      clearActivePoint()
-    })
-    hint.style.display = "none"
-  }
-
-  function renderFilterDetail(matches) {
-    const filterParts = []
-    if (activeCategory) {
-      filterParts.push(cats.find(c => c.match === activeCategory)?.label || activeCategory)
-    }
-    if (activeStakeholder) {
-      filterParts.push(activeStakeholder)
-    }
-    const title = filterParts.length > 0 ? `Filtered recommendations: ${filterParts.join(" + ")}` : "Filtered recommendations"
-
-    detail.style.display = "block"
-    detail.style.borderLeftColor = activeCategory
-      ? (cats.find(c => c.match === activeCategory)?.color || "#32dbce")
-      : "#32dbce"
-    detail.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-        <div>
-          <p style="margin:0 0 4px;font-size:15px;font-weight:600;color:#0D2557;line-height:1.45">${title}</p>
-          <p style="margin:0;font-size:12px;color:#6b7ea8;line-height:1.6">${matches.length} recommendation${matches.length === 1 ? "" : "s"} match the current filter.</p>
-        </div>
-        <button class="t2-pr-close" id="t2-pr-close">×</button>
-      </div>
-      <div>
-        ${matches.map(rec => `
-          <div style="padding:12px 0 12px 12px;border-top:1px solid #ebecf0;border-left:3px solid ${rec.category.color};">
-            <div style="margin-bottom:8px">
-              <span class="t2-pr-chip" style="background:${rec.category.bg};color:${rec.category.tx};border-color:${rec.category.color}">${rec.id}</span>
-              <span style="font-size:12px;color:#6b7ea8;font-weight:500">${rec.category.label} · ${rec.quadrant}</span>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px">
-              <span class="t2-pr-owner">Impact: ${rec.impact_rating}</span>
-              <span class="t2-pr-owner">Complexity: ${rec.complexity_rating}</span>
-            </div>
-            <p style="margin:0 0 8px;font-size:15px;font-weight:600;color:#0D2557;line-height:1.45">${rec.title}</p>
-            <p style="margin:0 0 10px;font-size:13px;color:#3a4f7a;line-height:1.75">${rec.desc}</p>
-            ${rec.rationale && rec.rationale !== "NA" ? `<p style="margin:0 0 10px;font-size:13px;color:#3a4f7a;line-height:1.75"><strong style="color:#0D2557">Rationale:</strong> ${rec.rationale}</p>` : ""}
-            <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">
-              <span style="font-size:12px;color:#8a99b8;margin-right:4px;font-weight:500">Stakeholder ownership:</span>
-              ${rec.owners.map(owner => `<span class="t2-pr-owner">${owner}</span>`).join("")}
-            </div>
-          </div>
-        `).join("")}
-      </div>
-    `
-    detail.querySelector("#t2-pr-close").addEventListener("click", () => {
-      activeCategory = null
-      activeStakeholder = null
-      detail.style.display = "none"
-      hint.style.display = "block"
-      updateCategoryFilter()
-    })
-    hint.style.display = "none"
-  }
-
-  function updateCategoryFilter() {
-    const legendItems = legend.querySelectorAll(".t2-pr-legend-item")
-    const stakeholderItems = stakeholderLegend.querySelectorAll(".t2-pr-sublegend-item[data-stakeholder]")
-    legendItems.forEach(item => {
-      const match = item.dataset.category === activeCategory
-      item.classList.toggle("active", match)
-      item.classList.toggle("dim", !!activeCategory && !match)
-    })
-    stakeholderItems.forEach(item => {
-      const match = item.dataset.stakeholder === activeStakeholder
-      item.classList.toggle("active", match)
-      item.classList.toggle("dim", !!activeStakeholder && !match)
-    })
-    pointEntries.forEach(({ rec, el }) => {
-      const matchCategory = !activeCategory || rec.cat.trim() === activeCategory
-      const matchStakeholder = !activeStakeholder || rec.owners.includes(activeStakeholder)
-      el.classList.toggle("dim", !(matchCategory && matchStakeholder))
-    })
-    const hasFilters = !!(activeCategory || activeStakeholder)
-    resetBtn.hidden = !hasFilters
-    if (!hasFilters) {
-      filterNote.textContent = "Click a category chip or stakeholder code to highlight matching recommendations."
-    } else {
-      const parts = []
-      if (activeCategory) {
-        parts.push(cats.find(c => c.match === activeCategory)?.label || activeCategory)
-      }
-      if (activeStakeholder) {
-        parts.push(activeStakeholder)
-      }
-      filterNote.textContent = `Filtered by ${parts.join(" + ")}.`
-    }
-
-    const matches = strategicRecs.filter(rec => {
-      const matchCategory = !activeCategory || rec.cat.trim() === activeCategory
-      const matchStakeholder = !activeStakeholder || rec.owners.includes(activeStakeholder)
-      return matchCategory && matchStakeholder
-    })
-
-    if (hasFilters) {
-      clearActivePoint()
-      renderFilterDetail(matches)
-    } else if (!activePoint) {
-      detail.style.display = "none"
-      hint.style.display = "block"
-    }
-  }
-
-  strategicRecs.forEach(rec => {
-    const offset = strategicOffsetMap.get(rec.id) || [0, 0]
-    const x = xBubbleScale(rec.complexity) + offset[0]
-    const y = yBubbleScale(rec.impact) + offset[1]
-
-    const g = document.createElementNS(svgNS, "g")
-    g.setAttribute("class", "t2-pr-point")
-    g.setAttribute("transform", `translate(${x}, ${y})`)
-
-    const dot = document.createElementNS(svgNS, "circle")
-    dot.setAttribute("r", 17)
-    dot.setAttribute("class", "t2-pr-dot")
-    dot.setAttribute("fill", rec.category.bg)
-    dot.setAttribute("stroke", rec.category.color)
-    g.appendChild(dot)
-
-    const idText = document.createElementNS(svgNS, "text")
-    idText.setAttribute("class", "t2-pr-id")
-    idText.setAttribute("y", 4)
-    idText.textContent = rec.id.replace(/\.$/, "")
-    g.appendChild(idText)
-
-    const owners = document.createElementNS(svgNS, "text")
-    owners.setAttribute("class", "t2-pr-own")
-    owners.setAttribute("y", 33)
-    owners.textContent = rec.ownerShort
-    g.appendChild(owners)
-
-    g.addEventListener("click", () => {
-      if (activePoint) activePoint.classList.remove("active")
-      g.classList.add("active")
-      activePoint = g
-      renderDetail(rec)
-    })
-
-    svg.appendChild(g)
-    pointEntries.push({ rec, el: g })
-  })
-
-  function addQuadrantLabel(x, y, title, subtitle, anchor = "start") {
-    const titleEl = document.createElementNS(svgNS, "text")
-    titleEl.setAttribute("x", x)
-    titleEl.setAttribute("y", y)
-    titleEl.setAttribute("class", "t2-pr-quad")
-    titleEl.setAttribute("text-anchor", anchor)
-    titleEl.textContent = title
-    svg.appendChild(titleEl)
-
-    const subtitleEl = document.createElementNS(svgNS, "text")
-    subtitleEl.setAttribute("x", x)
-    subtitleEl.setAttribute("y", y + 18)
-    subtitleEl.setAttribute("class", "t2-pr-caption")
-    subtitleEl.setAttribute("text-anchor", anchor)
-    subtitleEl.textContent = subtitle
-    svg.appendChild(subtitleEl)
-  }
-
-addQuadrantLabel(chart.left + 14, chart.top + 16, "Highest priority, lower effort", "Proceed first", "start")
-addQuadrantLabel(chart.right - 14, chart.top + 16, "Highest priority, higher effort", "Sequence and resource", "end")
-addQuadrantLabel(chart.left + 14, chart.bottom - 44, "Lower priority, lower effort", "Advance where justified", "start")
-addQuadrantLabel(chart.right - 14, chart.bottom - 44, "Lower priority, higher effort", "Pursue selectively", "end")
-  legend.addEventListener("click", e => {
-    const item = e.target.closest(".t2-pr-legend-item")
-    if (!item) return
-    activeCategory = activeCategory === item.dataset.category ? null : item.dataset.category
-    updateCategoryFilter()
-  })
-
-  stakeholderLegend.addEventListener("click", e => {
-    const item = e.target.closest(".t2-pr-sublegend-item[data-stakeholder]")
-    if (!item) return
-    activeStakeholder = activeStakeholder === item.dataset.stakeholder ? null : item.dataset.stakeholder
-    updateCategoryFilter()
-  })
-
-  resetBtn.addEventListener("click", () => {
-    activeCategory = null
-    activeStakeholder = null
-    updateCategoryFilter()
-  })
-
-  frame.appendChild(svg)
-  root.appendChild(frame)
-  root.appendChild(detail)
-  root.appendChild(hint)
-  updateCategoryFilter()
-
-  return root
-})()
-
-document.getElementById("t2-priority-mount").appendChild(strategicWidget)
-</script>
-```
