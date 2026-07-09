@@ -139,7 +139,7 @@ theme_labels <- tibble(
   mid_angle = c(pi / 4, 3 * pi / 4, 5 * pi / 4, 7 * pi / 4),
   label = c(
     "R1 Infrastructure, Standards & Community",
-    "R2 Incentives & & Policy",
+    "R2 Incentives & Policy",
     "R3 Training & Skills",
     "R4 Strengthening the Evidence-base"
   )

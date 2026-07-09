@@ -166,7 +166,7 @@ df <- read_excel(interactive_path("TIER2_recommendations.xlsx")) |>
 
 category_label_map <- c(
   "Infrastructure, standards and community" = "R1 Infrastructure, Standards & Community",
-  "Incentives and policy" = "R2 Incentives & & Policy",
+  "Incentives and policy" = "R2 Incentives & Policy",
   "Training and skills" = "R3 Training & Skills",
   "Evidence-based policy" = "R4 Strengthening the Evidence-base"
 )
@@ -303,7 +303,7 @@ const spokeShortTitles = ({
 
 const spokeThemeMeta = [
   { id: "R1", label: "R1 Infrastructure, Standards & Community", color: "#0D2557", text: "#FFFFFF" },
-  { id: "R2", label: "R2 Incentives & & Policy", color: "#32dbce", text: "#0D2557" },
+  { id: "R2", label: "R2 Incentives & Policy", color: "#32dbce", text: "#0D2557" },
   { id: "R3", label: "R3 Training & Skills", color: "#6B8FBF", text: "#FFFFFF" },
   { id: "R4", label: "R4 Strengthening the Evidence-base", color: "#C2F5F2", text: "#0D2557" }
 ]
@@ -378,7 +378,7 @@ const spokeWidget = (() => {
     const [tx, ty] = polar(120, index * Math.PI / 2 + Math.PI / 4)
     const themeLines = {
       R1: ["R1 Infrastructure,", "standards &", "community"],
-      R2: ["R2 Incentives", "& & Policy"],
+      R2: ["R2 Incentives", "& Policy"],
       R3: ["R3 Training", "& Skills"],
       R4: ["R4 Strengthening", "the Evidence-base"]
     }
@@ -487,8 +487,8 @@ const cats = [
     tx:    "#0D2557"
   },
   {
-    label: "R2 Incentives & & Policy",
-    match: "R2 Incentives & & Policy",
+    label: "R2 Incentives & Policy",
+    match: "R2 Incentives & Policy",
     color: "#32dbce",   // brand teal
     bg:    "#d6f8f5",   // light teal tint
     tx:    "#084845"    // dark teal for legibility
@@ -676,7 +676,7 @@ const widget = (() => {
       `<th data-category="${c.match}">
          <span style="margin-right:7px;font-size:14px;vertical-align:middle">${({
            "R1 Infrastructure, Standards & Community": "🏗️",
-           "R2 Incentives & & Policy": "⚖️",
+           "R2 Incentives & Policy": "⚖️",
            "R3 Training & Skills": "🎓",
            "R4 Strengthening the Evidence-base": "🔎"
          })[c.label]}</span>${c.label}
@@ -981,7 +981,7 @@ desc_map <- setNames(trimws(df$description), trimws(as.character(df$id)))
 
 category_styles <- list(
   "R1 Infrastructure, Standards & Community" = list(color = "#0D2557", bg = "#dce3f0", tx = "#0D2557"),
-  "R2 Incentives & & Policy" = list(color = "#32dbce", bg = "#d6f8f5", tx = "#084845"),
+  "R2 Incentives & Policy" = list(color = "#32dbce", bg = "#d6f8f5", tx = "#084845"),
   "R3 Training & Skills" = list(color = "#1a7fc4", bg = "#daeaf8", tx = "#0a3358"),
   "R4 Strengthening the Evidence-base" = list(color = "#4E9B8E", bg = "#E3F3F0", tx = "#1F4F49")
 )
@@ -1385,7 +1385,7 @@ tagList(
         label <- switch(
           cat_name,
           "R1 Infrastructure, Standards & Community" = "R1 Infrastructure, Standards & Community",
-          "R2 Incentives & & Policy" = "R2 Incentives & & Policy",
+          "R2 Incentives & Policy" = "R2 Incentives & Policy",
           "R3 Training & Skills" = "R3 Training & Skills",
           "R4 Strengthening the Evidence-base" = "R4 Strengthening the Evidence-base",
           cat_name
