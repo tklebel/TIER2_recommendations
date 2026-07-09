@@ -151,10 +151,10 @@ theme_labels <- tibble(
 
 # Generate dense point sequences along each theme arc at radius 2.58 so
 # geom_textpath can curve the theme label text along the band.
-# Small inset (0.12 rad) prevents text running too close to the slice boundaries.
+# Small inset (0.16 rad) prevents text running too close to the slice boundaries.
 theme_text_data <- theme_labels %>%
   rowwise() %>%
-  mutate(theta = list(seq(theta_start + 0.12, theta_end - 0.12, length.out = 120))) %>%
+  mutate(theta = list(seq(theta_start + 0.16, theta_end - 0.16, length.out = 120))) %>%
   ungroup() %>%
   unnest(theta) %>%
   mutate(
@@ -190,7 +190,7 @@ main_plot <- ggplot(plot_data) +
       angle = label_rotation,
       colour = text_colour
     ),
-    size = 3,
+    size = 2.7,
     fontface = "bold",
     lineheight = 0.85
   ) +
@@ -226,7 +226,7 @@ main_plot <- ggplot(plot_data) +
   geom_textpath(
     data = theme_text_data,
     aes(x = x, y = y, label = label, group = theme_id, colour = label_colour),
-    size = 3.3,
+    size = 2.9,
     fontface = "bold",
     text_only = TRUE,   # draw only text, not the underlying path line
     upright = TRUE,     # flip text on bottom half so it always reads left-to-right
@@ -351,7 +351,8 @@ ggsave(
   plot = final_plot,
   width = 11.69,
   height = 8.27,
-  units = "in"
+  units = "in",
+  bg = "white"
 )
 
 ggsave(
@@ -360,6 +361,7 @@ ggsave(
   width = 11.69,
   height = 8.27,
   units = "in",
+  bg = "white",
   dpi = 300
 )
 
@@ -504,7 +506,8 @@ ggsave(
   plot = spoke_plot,
   width = 10,
   height = 10,
-  units = "in"
+  units = "in",
+  bg = "white"
 )
 
 ggsave(
@@ -513,5 +516,6 @@ ggsave(
   width = 10,
   height = 10,
   units = "in",
+  bg = "white",
   dpi = 300
 )
