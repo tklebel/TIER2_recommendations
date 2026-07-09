@@ -138,10 +138,10 @@ theme_labels <- tibble(
   theta_end = (1:4) * pi / 2,
   mid_angle = c(pi / 4, 3 * pi / 4, 5 * pi / 4, 7 * pi / 4),
   label = c(
-    "R1 Infrastructure, standards & community",
-    "R2 Incentives, policy & culture",
-    "R3 Research & metascience",
-    "R4 Skills & capacity"
+    "R1 Infrastructure, standards and community",
+    "R2 Incentives and policy",
+    "R3 Training and skills",
+    "R4 Strengthening the evidence-base"
   )
 ) %>%
   mutate(
@@ -375,7 +375,7 @@ ggsave(
 # Geometry parameters ---------------------------------------------------------
 r_quad       <- 2.00   # outer radius of coloured quadrant sectors
 r_center     <- 0.62   # radius of white center circle
-r_theme_text <- 1.20   # inset theme labels to retain padding from circle edge
+r_theme_text <- 1.30   # inset theme labels to retain padding from circle edge
 r_dot        <- 2.12   # spoke base dot radius (just outside quadrant edge)
 r_spoke_end  <- 2.50   # outer end of spoke line (stops just before icon)
 r_icon       <- 2.72   # icon centre radius
@@ -435,7 +435,7 @@ spoke_plot <- ggplot() +
   geom_text(
     data = theme_text_data_spoke,
     aes(x = x, y = y, label = label, colour = label_colour),
-    size = 3.3,
+    size = 3.0,
     fontface = "bold",
     lineheight = 0.9,
     hjust = 0.5,

@@ -119,7 +119,7 @@ When referring to this work, please cite it as:
 This document presents three interactive views of 11 recommendations for improving research reproducibility across five stakeholder groups and four thematic categories. The interactive spoke diagram provides a visual overview with click-to-view descriptions, the stakeholder responsibility matrix lets you filter by category or stakeholder and click recommendation chips to expand their full descriptions, the stakeholder–recommendation network graph shows the same relationships as connected nodes with click-to-view details below.
 
 ```{=html}
-<p>For more information on TIER2, <a class="t2-link t2-external-link" href="https://tier2-project.eu/" target="_blank" rel="noopener noreferrer">visit the project website</a>.</p>
+<p>For more information on TIER2, <a class="t2-link t2-external-link" href="https://tier2-project.eu/" target="_blank" rel="noopener noreferrer">visit the project website</a>. The source code and data behind this page are available in the <a class="t2-link t2-external-link" href="https://github.com/abannachbrown/TIER2_recommendations" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>
 ```
 
 ---
@@ -290,10 +290,10 @@ const spokeShortTitles = ({
 })
 
 const spokeThemeMeta = [
-  { id: "R1", label: "R1 Infrastructure, standards & community", color: "#0D2557", text: "#FFFFFF" },
-  { id: "R2", label: "R2 Incentives, policy & culture", color: "#32dbce", text: "#0D2557" },
-  { id: "R3", label: "R3 Research & metascience", color: "#6B8FBF", text: "#FFFFFF" },
-  { id: "R4", label: "R4 Skills & capacity", color: "#C2F5F2", text: "#0D2557" }
+  { id: "R1", label: "R1 Infrastructure, standards and community", color: "#0D2557", text: "#FFFFFF" },
+  { id: "R2", label: "R2 Incentives and policy", color: "#32dbce", text: "#0D2557" },
+  { id: "R3", label: "R3 Training and skills", color: "#6B8FBF", text: "#FFFFFF" },
+  { id: "R4", label: "R4 Strengthening the evidence-base", color: "#C2F5F2", text: "#0D2557" }
 ]
 
 const spokeWidget = (() => {
@@ -365,10 +365,10 @@ const spokeWidget = (() => {
     svg.appendChild(path)
     const [tx, ty] = polar(120, index * Math.PI / 2 + Math.PI / 4)
     const themeLines = {
-      R1: ["R1 Infrastructure,", "standards &", "community"],
-      R2: ["R2 Incentives,", "policy & culture"],
-      R3: ["R3 Research", "& metascience"],
-      R4: ["R4 Skills", "& capacity"]
+      R1: ["R1 Infrastructure,", "standards and", "community"],
+      R2: ["R2 Incentives", "and policy"],
+      R3: ["R3 Training", "and skills"],
+      R4: ["R4 Strengthening", "the evidence-base"]
     }
     const lines = themeLines[theme.id]
     const inwardAnchor = tx >= 0 ? "start" : "end"
@@ -489,8 +489,8 @@ const cats = [
     tx:    "#0a3358"
   },
   {
-    label: "Evidence-based policy",
-    match: "Evidence-based policy",
+    label: "Evidence-base",
+    match: "Strengthening the evidence-base",
     color: "#4E9B8E",   // muted sea-green
     bg:    "#E3F3F0",   // light sea-green tint
     tx:    "#1F4F49"
@@ -666,7 +666,7 @@ const widget = (() => {
            "Infrastructure & standards": "🏗️",
            "Incentives & policy": "⚖️",
            "Training & skills": "🎓",
-           "Evidence-based policy": "🔎"
+           "Evidence-base": "🔎"
          })[c.label]}</span>${c.label}
        </th>`
     ).join("");
@@ -971,7 +971,7 @@ category_styles <- list(
   "Infrastructure, standards and community" = list(color = "#0D2557", bg = "#dce3f0", tx = "#0D2557"),
   "Incentives and policy" = list(color = "#32dbce", bg = "#d6f8f5", tx = "#084845"),
   "Training and skills" = list(color = "#1a7fc4", bg = "#daeaf8", tx = "#0a3358"),
-  "Evidence-based policy" = list(color = "#4E9B8E", bg = "#E3F3F0", tx = "#1F4F49")
+  "Strengthening the evidence-base" = list(color = "#4E9B8E", bg = "#E3F3F0", tx = "#1F4F49")
 )
 
 edges <- data.frame(
@@ -1375,7 +1375,7 @@ tagList(
           "Infrastructure, standards and community" = "Infrastructure & standards",
           "Incentives and policy" = "Incentives & policy",
           "Training and skills" = "Training & skills",
-          "Evidence-based policy" = "Evidence-based policy",
+          "Strengthening the evidence-base" = "Evidence-base",
           cat_name
         )
         tags$span(
