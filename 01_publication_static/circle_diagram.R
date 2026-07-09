@@ -138,10 +138,10 @@ theme_labels <- tibble(
   theta_end = (1:4) * pi / 2,
   mid_angle = c(pi / 4, 3 * pi / 4, 5 * pi / 4, 7 * pi / 4),
   label = c(
-    "R1 Infrastructure, standards & community",
-    "R2 Incentives, policy & culture",
-    "R3 Research & metascience",
-    "R4 Skills & capacity"
+    "R1 Infrastructure, Standards & Community",
+    "R2 Incentives & & Policy",
+    "R3 Training & Skills",
+    "R4 Strengthening the Evidence-base"
   )
 ) %>%
   mutate(
