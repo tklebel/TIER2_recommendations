@@ -297,7 +297,7 @@ const spokeShortTitles = ({
   "R3.3": "Journal infrastructure capacity",
   "R4.1": "Efficacy of interventions",
   "R4.2": "Costs & benefits of interventions",
-  "R4.3": "Metaresearch workflows"
+  "R4.3": "Meta-research workflows"
 })
 
 const spokeThemeMeta = [

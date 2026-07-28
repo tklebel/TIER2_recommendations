@@ -72,7 +72,7 @@ recs <- read_excel(static_path("TIER2_recommendations.xlsx")) %>%
     rec_id == "R3.3" ~ "Journal infrastructure capacity",
     rec_id == "R4.1" ~ "Efficacy of interventions",
     rec_id == "R4.2" ~ "Costs & benefits of interventions",
-    rec_id == "R4.3" ~ "Metaresearch workflows"
+    rec_id == "R4.3" ~ "Meta-research workflows"
   ))
 
 
