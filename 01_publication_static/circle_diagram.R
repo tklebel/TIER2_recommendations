@@ -40,7 +40,7 @@ static_path <- function(...) file.path(static_dir, ...)
 # Load and clean data -----------------------------------------------------
 
 # Read recommendations from Excel, extract theme and rec IDs from the
-# numbering column (e.g. "R1.1." → theme_id "R1", rec_id "R1.1"),
+# numbering column (e.g. "R1.1" → theme_id "R1", rec_id "R1.1"),
 # and standardise stakeholder label capitalisation
 recs <- read_excel(static_path("TIER2_recommendations.xlsx")) %>%
   transmute(
@@ -52,27 +52,26 @@ recs <- read_excel(static_path("TIER2_recommendations.xlsx")) %>%
       str_replace_all("Research Communities", "Research communities") %>%
       str_replace_all("Meta-Researchers", "Meta-researchers")
   ) %>%
-  # R2.1 (Drive culture change) removed based on updates to the recommendations
-  filter(rec_id != "R2.1") %>%
-  # Renumber remaining R2 recs to close the gap: R2.2 → R2.1, R2.3 → R2.2
-  mutate(rec_id = case_when(
-    rec_id == "R2.2" ~ "R2.1",
-    rec_id == "R2.3" ~ "R2.2",
-    TRUE             ~ rec_id
-  )) %>%
-  # Override rec titles with shortened display versions (uses renumbered IDs)
+  # Override rec titles with shortened display versions
   mutate(rec_title = case_when(
     rec_id == "R1.1" ~ "Sustainable open infrastructure",
     rec_id == "R1.2" ~ "Standards for data re-use",
     rec_id == "R1.3" ~ "Persistent identifiers & metadata",
     rec_id == "R2.1" ~ "Responsible reproducibility metrics",
-    rec_id == "R2.2" ~ "Fund replication studies",
+    rec_id == "R2.2" ~ "Funding of replication studies",
     rec_id == "R3.1" ~ "Training ecosystems & networks",
-    rec_id == "R3.2" ~ "Leadership & researcher training",
+    rec_id == "R3.2" ~ "Leadership engagement & training",
     rec_id == "R3.3" ~ "Journal infrastructure capacity",
-    rec_id == "R4.1" ~ "Efficacy of interventions",
-    rec_id == "R4.2" ~ "Costs & benefits of interventions",
-    rec_id == "R4.3" ~ "Enable metaresearch workflows"
+    rec_id == "R4.1" ~ "Efficacy of measures to improve reproducibility",
+    rec_id == "R4.2" ~ "Costs & benefits of measures to improve reproducibility",
+    rec_id == "R4.3" ~ "Meta-research workflows"
+  )) %>%
+  # The slices of the circle diagram are narrower than the spoke labels, so
+  # R4.1 and R4.2 use a shorter variant there
+  mutate(circle_title = case_when(
+    rec_id == "R4.1" ~ "Efficacy of reproducibility measures",
+    rec_id == "R4.2" ~ "Costs & benefits of reproducibility measures",
+    TRUE             ~ rec_title
   ))
 
 
@@ -121,7 +120,7 @@ plot_data <- recs %>%
     label_radius = 1.30,                                                     # offset toward outer edge of arc ring (outer edge = 1.95)
     x_label = label_radius * sin(label_angle),
     y_label = label_radius * cos(label_angle),
-    label = str_wrap(rec_title, width = 15),                                 # wrap long titles to fit slice
+    label = str_wrap(circle_title, width = 15),                                 # wrap long titles to fit slice
     label_rotation = ((90 - label_angle * 180 / pi + 90) %% 180) - 90,      # keep text readable on all sides
     text_colour = theme_text_cols[theme_id]                                  # white on navy, dark navy on teal
   ) %>%
@@ -141,7 +140,7 @@ theme_labels <- tibble(
     "R1 Infrastructure, standards and community",
     "R2 Incentives and policy",
     "R3 Training and skills",
-    "R4 Strengthening the evidence-base"
+    "R4 Strengthening the evidence base"
   )
 ) %>%
   mutate(
@@ -337,7 +336,7 @@ final_plot <-
 # Optional caption (commented out — kept for reference)
 # annotated_plot <- final_plot +
 #   plot_annotation(
-#     caption = "TIER2 Strategic responsibilities for strengthening reproducibility. Left: all 11 recommendations grouped by strategic theme; each slice is one recommendation and the outer band groups recommendations by theme. Right: stakeholder-specific views show only recommendations where that stakeholder has ownership or influence.",
+#     caption = "Overview of recommendations for reproducible research. Left: all 11 recommendations grouped by strategic theme; each slice is one recommendation and the outer band groups recommendations by theme. Right: stakeholder-specific views show only recommendations where that stakeholder has ownership or influence.",
 #     theme = theme(plot.caption = element_text(hjust = 0.5, size = 8, colour = "grey30", margin = margin(t = 8)))
 #   )
 
@@ -381,7 +380,7 @@ r_theme_text <- 1.30   # inset theme labels to retain padding from circle edge
 r_dot        <- 2.12   # spoke base dot radius (just outside quadrant edge)
 r_spoke_end  <- 2.50   # outer end of spoke line (stops just before icon)
 r_icon       <- 2.72   # icon centre radius
-r_label      <- 3.05   # label text anchor radius (beyond icon)
+r_label      <- 3.15   # label text anchor radius (beyond icon)
 
 # Horizontal theme labels centred within each quadrant ------------------------
 theme_text_data_spoke <- theme_labels %>%
@@ -437,7 +436,7 @@ spoke_plot <- ggplot() +
   geom_text(
     data = theme_text_data_spoke,
     aes(x = x, y = y, label = label, colour = label_colour),
-    size = 2.7,
+    size = 2.5,
     fontface = "bold",
     lineheight = 0.9,
     hjust = 0.5,
@@ -452,11 +451,10 @@ spoke_plot <- ggplot() +
     fill = "white", colour = NA
   ) +
 
-  # Center text: title on top, subtitle below
-  annotate("text", x = 0, y = 0.14,
-           label = "TIER2", size = 5.5, fontface = "bold", colour = "#0D2557") +
-  annotate("text", x = 0, y = -0.16,
-           label = "Recommendations", size = 2.0, colour = "#0D2557") +
+  # Center text: the paper's short title, one word per line to fit the hub
+  annotate("text", x = 0, y = 0,
+           label = "Eleven\npaths\nforward", size = 3.7, fontface = "bold",
+           lineheight = 0.9, colour = "#0D2557") +
 
   # Spoke lines from quadrant edge outward, coloured by theme
   geom_segment(
