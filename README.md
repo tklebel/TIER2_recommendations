@@ -35,7 +35,7 @@ renders a self-contained HTML page containing:
 The rendered page is available locally at
 [`02_interactive_plots/TIER2_stakeholder_matrix.html`](02_interactive_plots/TIER2_stakeholder_matrix.html)
 and is configured for publication at
-[inquisitive-quokka-25f881.netlify.app](https://inquisitive-quokka-25f881.netlify.app).
+[Uni-graz.at](https://cs2.uni-graz.at/reproducibility-recommendations/).
 
 ## Repository structure
 
